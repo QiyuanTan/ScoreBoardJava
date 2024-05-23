@@ -4,30 +4,30 @@ import lombok.Data;
 
 @Data
 public class Response<T>{
-    private int code;
+    private boolean success;
     private String message;
     private T data;
 
-    public Response(int code, String message, T data){
-        this.code = code;
+    public Response(boolean success, String message, T data){
+        this.success = success;
         this.message = message;
         this.data = data;
     }
 
     public static <T> Response<T> success(T data){
-        return new Response<T>(200, "success", data);
+        return new Response<>(true, "success", data);
     }
 
     public static <T> Response<T> success(){
-        return new Response<T>(200, "success", null);
+        return new Response<>(true, "success", null);
     }
 
-    public static <T> Response<T> error(int code, String message) {
-        return new Response<T>(code, message, null);
+    public static <T> Response<T> error(String message) {
+        return new Response<>(false, message, null);
    }
 
     @Override
     public String toString() {
-        return STR."Response{code=\{code}, message='\{message}\{'\''}, data=\{data}\{'}'}";
+        return STR."Response{success=\{success}, message='\{message}\{'\''}, data=\{data}\{'}'}";
     }
 }
